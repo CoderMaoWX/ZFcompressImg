@@ -12,6 +12,11 @@
 		A3385ABC22477EE60097ACE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3385ABB22477EE60097ACE3 /* Assets.xcassets */; };
 		A3385ABF22477EE60097ACE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3385ABD22477EE60097ACE3 /* Main.storyboard */; };
 		A3385AC222477EE60097ACE3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A3385AC122477EE60097ACE3 /* main.m */; };
+		A3385ACD224790100097ACE3 /* PNGCompress in Resources */ = {isa = PBXBuildFile; fileRef = A3385ACA224790100097ACE3 /* PNGCompress */; };
+		A3385ACE224790100097ACE3 /* pngquantWrapper in Resources */ = {isa = PBXBuildFile; fileRef = A3385ACB224790100097ACE3 /* pngquantWrapper */; };
+		A3385ACF224790100097ACE3 /* pngquant in Resources */ = {isa = PBXBuildFile; fileRef = A3385ACC224790100097ACE3 /* pngquant */; };
+		A3385AD32247A91E0097ACE3 /* AppleScriptKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3385AD12247A91E0097ACE3 /* AppleScriptKit.framework */; };
+		A3385AD42247A91E0097ACE3 /* AppleScriptObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3385AD22247A91E0097ACE3 /* AppleScriptObjC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +30,11 @@
 		A3385AC022477EE60097ACE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3385AC122477EE60097ACE3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A3385AC322477EE60097ACE3 /* ZFcompressImg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZFcompressImg.entitlements; sourceTree = "<group>"; };
+		A3385ACA224790100097ACE3 /* PNGCompress */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = PNGCompress; sourceTree = "<group>"; };
+		A3385ACB224790100097ACE3 /* pngquantWrapper */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = pngquantWrapper; sourceTree = "<group>"; };
+		A3385ACC224790100097ACE3 /* pngquant */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = pngquant; sourceTree = "<group>"; };
+		A3385AD12247A91E0097ACE3 /* AppleScriptKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleScriptKit.framework; path = System/Library/Frameworks/AppleScriptKit.framework; sourceTree = SDKROOT; };
+		A3385AD22247A91E0097ACE3 /* AppleScriptObjC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleScriptObjC.framework; path = System/Library/Frameworks/AppleScriptObjC.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +42,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3385AD32247A91E0097ACE3 /* AppleScriptKit.framework in Frameworks */,
+				A3385AD42247A91E0097ACE3 /* AppleScriptObjC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,8 +53,10 @@
 		A3385AA922477EE40097ACE3 = {
 			isa = PBXGroup;
 			children = (
+				A3385AC9224790100097ACE3 /* Source */,
 				A3385AB422477EE40097ACE3 /* ZFcompressImg */,
 				A3385AB322477EE40097ACE3 /* Products */,
+				A3385AD02247A91E0097ACE3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,6 +82,25 @@
 				A3385AC322477EE60097ACE3 /* ZFcompressImg.entitlements */,
 			);
 			path = ZFcompressImg;
+			sourceTree = "<group>";
+		};
+		A3385AC9224790100097ACE3 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				A3385ACA224790100097ACE3 /* PNGCompress */,
+				A3385ACB224790100097ACE3 /* pngquantWrapper */,
+				A3385ACC224790100097ACE3 /* pngquant */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		A3385AD02247A91E0097ACE3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A3385AD12247A91E0097ACE3 /* AppleScriptKit.framework */,
+				A3385AD22247A91E0097ACE3 /* AppleScriptObjC.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -101,6 +134,14 @@
 				TargetAttributes = {
 					A3385AB122477EE40097ACE3 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 0;
+							};
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -127,7 +168,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3385ACD224790100097ACE3 /* PNGCompress in Resources */,
 				A3385ABC22477EE60097ACE3 /* Assets.xcassets in Resources */,
+				A3385ACE224790100097ACE3 /* pngquantWrapper in Resources */,
+				A3385ACF224790100097ACE3 /* pngquant in Resources */,
 				A3385ABF22477EE60097ACE3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,7 +254,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -263,7 +307,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -275,7 +319,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ZFcompressImg/ZFcompressImg.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				INFOPLIST_FILE = ZFcompressImg/Info.plist;
@@ -283,8 +328,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mao.test.ZFcompressImg;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.luke;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -293,7 +340,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ZFcompressImg/ZFcompressImg.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				INFOPLIST_FILE = ZFcompressImg/Info.plist;
@@ -301,8 +349,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mao.test.ZFcompressImg;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.luke;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
