@@ -44,10 +44,39 @@
  * 选择路径
  */
 - (IBAction)chooseAction:(NSButton *)sender {
-    NSURL *filePath = [self chooseFile];
-    [self.filePathField setStringValue:filePath.path];
+    self.tipLabel.hidden = YES;
+    self.filePathField.stringValue = @"";
     self.tipLabel.stringValue = @"";
-    self.tipImageView.hidden = YES;
+    
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setAllowsMultipleSelection:false];  //是否允许多选file
+    [panel setCanChooseDirectories:YES];
+    
+    [panel beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse result) {
+        
+        if (result == NSFileHandlingPanelOKButton) {
+            NSURL *filePath = [panel URL];
+            
+            BOOL isDirectory = NO;
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            BOOL isExists = [fileManager fileExistsAtPath:filePath.path isDirectory:&isDirectory];
+            if (!isExists) {
+                self.tipLabel.stringValue = [NSString stringWithFormat:@"选择的文件(夹): \"%@\"不存在！", filePath.path];
+                self.tipLabel.hidden = NO;
+                return;
+            }
+            if (!isDirectory && ![filePath.path hasSuffix:@"png"]) {
+                self.tipLabel.stringValue = [NSString stringWithFormat:@"选择的文件: \"%@\"仅支持png图片！", filePath.path];
+                self.tipLabel.hidden = NO;
+                return;
+            }
+            self.filePathField.stringValue = filePath.path;
+            self.tipLabel.stringValue = @"";
+            self.tipImageView.hidden = YES;
+        } else {
+            NSLog(@"已取消路径选择");
+        }
+    }];
 }
 
 /**
@@ -58,13 +87,16 @@
     self.tipImageView.hidden = YES;
     
     NSString *filePath = self.filePathField.stringValue;
-    if (filePath.length == 0 || ![filePath containsString:@"/"]) {
-        self.tipLabel.stringValue = @"请选择正确的路径！";
+    if ([filePath containsString:@" "]) {
+        self.tipLabel.stringValue = @"请检查文件(夹)路径中不能带空格";
         return;
     }
     
-    if ([filePath containsString:@" "]) {
-        self.tipLabel.stringValue = @"请检查文件(夹)路径中不能带空格";
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL existsFile = [fileManager fileExistsAtPath:filePath];
+    
+    if (filePath.length == 0 || ![filePath containsString:@"/"] || !existsFile) {
+        self.tipLabel.stringValue = @"请选择正确的路径！";
         return;
     }
     
@@ -96,22 +128,8 @@
     self.tipImageView.hidden = NO;
 }
 
-- (NSURL *)chooseFile {
-    NSOpenPanel *panel = [NSOpenPanel openPanel];
-    [panel setAllowsMultipleSelection:false];  //是否允许多选file
-    [panel setCanChooseDirectories:YES];
-    
-    NSInteger finded = [panel runModal]; //获取panel的响应
-    if (finded == NSModalResponseOK) {
-        return [panel URL];
-    }else{
-        return nil;
-    }
-}
-
 //NSImage 转换为 CGImageRef
-- (CGImageRef)imageToCGImageRef:(NSImage*)image
-{
+- (CGImageRef)imageToCGImageRef:(NSImage*)image {
     NSData * imageData = [image TIFFRepresentation];
     CGImageRef imageRef;
     if(imageData){

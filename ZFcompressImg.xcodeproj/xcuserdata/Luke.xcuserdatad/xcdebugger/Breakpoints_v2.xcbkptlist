@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFcompressImg/ViewController.m"
-            timestampString = "575131853.092255"
+            timestampString = "576333646.304672"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "-startDispose:"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "-chooseAction:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
