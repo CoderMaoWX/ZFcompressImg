@@ -85,6 +85,7 @@
 - (IBAction)startDispose:(id)sender {
     self.tipLabel.hidden = NO;
     self.tipImageView.hidden = YES;
+    self.tipImageView.hidden = YES;
     
     NSString *filePath = self.filePathField.stringValue;
     if ([filePath containsString:@" "]) {
