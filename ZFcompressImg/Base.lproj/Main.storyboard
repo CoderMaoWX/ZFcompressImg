@@ -796,8 +796,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="chooseButton" destination="t61-Rn-Y38" id="SlE-3o-LQ6"/>
                         <outlet property="filePathField" destination="r98-nw-u5d" id="7jb-yN-0ft"/>
                         <outlet property="progressIndictor" destination="jY4-Zj-0rv" id="ZFT-KG-vXE"/>
+                        <outlet property="startButton" destination="I8f-j8-Kgh" id="0Xb-Mn-e0N"/>
                         <outlet property="tipImageView" destination="PkK-h8-V3S" id="TSQ-ZZ-ooa"/>
                         <outlet property="tipLabel" destination="7lo-XK-Hgf" id="rZ4-CM-R0D"/>
                     </connections>

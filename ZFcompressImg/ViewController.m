@@ -8,11 +8,20 @@
 
 #import "ViewController.h"
 
+//自定义Log
+#ifdef DEBUG
+    #define ZFLog(fmt, ...) fprintf(stderr,"%s: %s [Line %d]\t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String],__PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:fmt, ##__VA_ARGS__] UTF8String]);
+#else
+    #define ZFLog(...)
+#endif
+
 @interface ViewController ()<NSTextFieldDelegate>
 @property (weak) IBOutlet NSTextField *filePathField;
 @property (weak) IBOutlet NSProgressIndicator *progressIndictor;
 @property (weak) IBOutlet NSTextField *tipLabel;
 @property (weak) IBOutlet NSImageView *tipImageView;
+@property (weak) IBOutlet NSButtonCell *chooseButton;
+@property (weak) IBOutlet NSButtonCell *startButton;
 @end
 
 @implementation ViewController
@@ -44,9 +53,10 @@
  * 选择路径
  */
 - (IBAction)chooseAction:(NSButton *)sender {
+    self.tipImageView.hidden = YES;
     self.tipLabel.hidden = YES;
-    self.filePathField.stringValue = @"";
     self.tipLabel.stringValue = @"";
+    self.filePathField.stringValue = @"";
     
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setAllowsMultipleSelection:false];  //是否允许多选file
@@ -74,7 +84,7 @@
             self.tipLabel.stringValue = @"";
             self.tipImageView.hidden = YES;
         } else {
-            NSLog(@"已取消路径选择");
+            ZFLog(@"已取消路径选择");
         }
     }];
 }
@@ -85,7 +95,6 @@
 - (IBAction)startDispose:(id)sender {
     self.tipLabel.hidden = NO;
     self.tipImageView.hidden = YES;
-    self.tipImageView.hidden = YES;
     
     NSString *filePath = self.filePathField.stringValue;
     if ([filePath containsString:@" "]) {
@@ -95,44 +104,65 @@
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL existsFile = [fileManager fileExistsAtPath:filePath];
-    
     if (filePath.length == 0 || ![filePath containsString:@"/"] || !existsFile) {
         self.tipLabel.stringValue = @"请选择正确的路径！";
         return;
     }
-    
     self.progressIndictor.hidden = NO;
     [self.progressIndictor startAnimation:nil];
+    self.filePathField.enabled = NO;
+    self.chooseButton.enabled = NO;
+    self.startButton.enabled = NO;
     self.tipLabel.stringValue = @"正在压缩中。。。";
     
-    NSString *shellPathPng = [[NSBundle mainBundle] pathForResource:@"PNGCompress" ofType:@""];
-    
-    NSTask *task = [[NSTask alloc] init];
-    task.launchPath = @"/bin/sh";
-    task.arguments = @[shellPathPng, _filePathField.stringValue];
-    task.currentDirectoryPath = [[NSBundle  mainBundle] resourcePath];
-    NSPipe *outputPipe = [NSPipe pipe];
-    [task setStandardOutput:outputPipe];
-    [task setStandardError:outputPipe];
-    NSFileHandle *readHandle = [outputPipe fileHandleForReading];
-    
-    [task launch];
-    [task waitUntilExit];
-    
-    NSData *outputData = [readHandle readDataToEndOfFile];
-    NSString *outputString = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
-    NSLog(@"脚本输出-Debug : \n%@",outputString);
-    
-    NSLog(@" ======恭喜，图片压缩完成 ======");
-    self.tipLabel.stringValue = @"恭喜,所有图压缩完成！！！";
-    self.progressIndictor.hidden = YES;
-    self.tipImageView.hidden = NO;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *shellPathPng = [[NSBundle mainBundle] pathForResource:@"PNGCompress" ofType:@""];
+        
+        NSTask *task = [[NSTask alloc] init];
+        task.launchPath = @"/bin/sh";
+        task.arguments = @[shellPathPng, filePath];
+        task.currentDirectoryPath = [[NSBundle mainBundle] resourcePath];
+        
+        NSPipe *outputPipe = [NSPipe pipe];
+        [task setStandardOutput:outputPipe];
+        [task setStandardError:outputPipe];
+        
+        NSError *error = nil;
+        if (@available(macOS 10.13, *)) {
+            [task launchAndReturnError:&error];
+        } else {
+            [task launch];
+        }
+        [task waitUntilExit];
+        
+        NSFileHandle *readHandle = [outputPipe fileHandleForReading];
+        NSData *outputData = [readHandle readDataToEndOfFile];
+        NSString *outputString = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
+        ZFLog(@"脚本输出-Debug : \n%@",outputString);
+        
+        int status = [task terminationStatus];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (status == 0 || !error) {
+                self.tipImageView.image = [NSImage imageNamed:@"success"];
+                self.tipLabel.stringValue = @"恭喜,所有图片压缩完成！！！";
+            } else {
+                self.tipImageView.image = [NSImage imageNamed:@"fail"];
+                self.tipLabel.stringValue = @"糟糕,图片压缩遇到未知错误！！！";
+            }
+            self.progressIndictor.hidden = YES;
+            self.tipImageView.hidden = NO;
+            self.filePathField.enabled = YES;
+            self.chooseButton.enabled = YES;
+            self.startButton.enabled = YES;
+        });
+    });
 }
 
 //NSImage 转换为 CGImageRef
 - (CGImageRef)imageToCGImageRef:(NSImage*)image {
     NSData * imageData = [image TIFFRepresentation];
-    CGImageRef imageRef;
+    CGImageRef imageRef = nil;
     if(imageData){
         CGImageSourceRef imageSource = CGImageSourceCreateWithData((CFDataRef)imageData, NULL);
         imageRef = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
