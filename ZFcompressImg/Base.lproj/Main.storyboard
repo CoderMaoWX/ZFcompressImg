@@ -707,11 +707,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="489" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r98-nw-u5d">
-                                <rect key="frame" x="20" y="164" width="335" height="22"/>
+                                <rect key="frame" x="20" y="164" width="344" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="注意：文件(夹)路径名称不能带空格" drawsBackground="YES" id="UNR-8r-8o6">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -722,15 +722,15 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qAY-2R-ja3">
-                                <rect key="frame" x="18" y="206" width="190" height="17"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="请选择你要压缩的图片文件夹：" id="ItY-0d-ZbJ">
+                                <rect key="frame" x="18" y="206" width="199" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="请选择你要压缩的图片文件(夹)：" id="ItY-0d-ZbJ">
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SZQ-h5-ybG">
-                                <rect key="frame" x="369" y="23" width="97" height="32"/>
+                                <rect key="frame" x="378" y="23" width="97" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="1vl-fu-6Ah"/>
                                 </constraints>
@@ -743,10 +743,10 @@
                                 </connections>
                             </button>
                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="jY4-Zj-0rv">
-                                <rect key="frame" x="172" y="88" width="32" height="32"/>
+                                <rect key="frame" x="162" y="79" width="32" height="32"/>
                             </progressIndicator>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7lo-XK-Hgf">
-                                <rect key="frame" x="18" y="32" width="339" height="17"/>
+                                <rect key="frame" x="18" y="32" width="348" height="17"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="正在压缩中。。。" id="EnE-4D-nQU">
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -754,7 +754,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l4M-hj-t5n">
-                                <rect key="frame" x="369" y="158" width="97" height="32"/>
+                                <rect key="frame" x="378" y="158" width="97" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="eGT-P0-wgZ"/>
                                 </constraints>
@@ -767,36 +767,50 @@
                                 </connections>
                             </button>
                             <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PkK-h8-V3S">
-                                <rect key="frame" x="163" y="69" width="50" height="50"/>
+                                <rect key="frame" x="259" y="70" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="J2k-eJ-O2b"/>
-                                    <constraint firstAttribute="height" constant="50" id="xZe-yo-f0e"/>
+                                    <constraint firstAttribute="width" constant="50" id="CXg-w6-Y5P"/>
+                                    <constraint firstAttribute="height" constant="50" id="LVe-I0-2VS"/>
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="success" id="cFR-Zk-fol"/>
                             </imageView>
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Chn-Vj-oCe">
+                                <rect key="frame" x="18" y="87" width="184" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="Flv-Cb-pxt"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="文件总大小:  0M \n 压缩节省: 0M \n 压缩率: 0%" id="m9v-4X-WHl">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="SZQ-h5-ybG" secondAttribute="bottom" constant="30" id="3ji-uL-7DQ"/>
+                            <constraint firstItem="PkK-h8-V3S" firstAttribute="trailing" secondItem="r98-nw-u5d" secondAttribute="trailing" constant="-55" id="Ejc-Mq-EOl"/>
                             <constraint firstItem="qAY-2R-ja3" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="Gwk-aE-a7t"/>
-                            <constraint firstItem="7lo-XK-Hgf" firstAttribute="centerY" secondItem="SZQ-h5-ybG" secondAttribute="centerY" id="Iyh-e0-jpA"/>
-                            <constraint firstItem="PkK-h8-V3S" firstAttribute="centerX" secondItem="7lo-XK-Hgf" secondAttribute="centerX" id="PG0-fi-7yI"/>
+                            <constraint firstItem="Chn-Vj-oCe" firstAttribute="leading" secondItem="r98-nw-u5d" secondAttribute="leading" id="MNa-0C-52Q"/>
+                            <constraint firstItem="7lo-XK-Hgf" firstAttribute="top" secondItem="PkK-h8-V3S" secondAttribute="bottom" constant="21" id="Nxx-h0-Vle"/>
                             <constraint firstItem="qAY-2R-ja3" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="47" id="RIL-lc-hVU"/>
                             <constraint firstItem="r98-nw-u5d" firstAttribute="leading" secondItem="qAY-2R-ja3" secondAttribute="leading" id="RKv-J7-3d5"/>
+                            <constraint firstItem="7lo-XK-Hgf" firstAttribute="leading" secondItem="r98-nw-u5d" secondAttribute="leading" id="RrI-bL-dY2"/>
                             <constraint firstAttribute="trailing" secondItem="l4M-hj-t5n" secondAttribute="trailing" constant="20" id="SS9-og-ex0"/>
                             <constraint firstItem="r98-nw-u5d" firstAttribute="top" secondItem="qAY-2R-ja3" secondAttribute="bottom" constant="20" id="XPP-Hl-yBF"/>
                             <constraint firstItem="l4M-hj-t5n" firstAttribute="centerY" secondItem="r98-nw-u5d" secondAttribute="centerY" id="bO8-Ti-xa7"/>
-                            <constraint firstItem="PkK-h8-V3S" firstAttribute="centerY" secondItem="7lo-XK-Hgf" secondAttribute="centerY" constant="-53.5" id="gZq-8V-wq1"/>
+                            <constraint firstItem="7lo-XK-Hgf" firstAttribute="trailing" secondItem="r98-nw-u5d" secondAttribute="trailing" id="cwI-T5-Exv"/>
+                            <constraint firstItem="jY4-Zj-0rv" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="162" id="gAf-Xe-nNy"/>
                             <constraint firstAttribute="trailing" secondItem="qAY-2R-ja3" secondAttribute="trailing" constant="274" id="hYY-Qd-tcj"/>
-                            <constraint firstItem="SZQ-h5-ybG" firstAttribute="leading" secondItem="7lo-XK-Hgf" secondAttribute="trailing" constant="20" id="idb-jz-G26"/>
                             <constraint firstAttribute="trailing" secondItem="SZQ-h5-ybG" secondAttribute="trailing" constant="20" id="ikb-8P-PcI"/>
                             <constraint firstItem="l4M-hj-t5n" firstAttribute="leading" secondItem="r98-nw-u5d" secondAttribute="trailing" constant="20" id="kHc-Hm-VcC"/>
-                            <constraint firstItem="jY4-Zj-0rv" firstAttribute="centerX" secondItem="7lo-XK-Hgf" secondAttribute="centerX" id="klq-H7-4Yy"/>
-                            <constraint firstItem="7lo-XK-Hgf" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="s3Z-pS-pMb"/>
-                            <constraint firstItem="jY4-Zj-0rv" firstAttribute="top" secondItem="r98-nw-u5d" secondAttribute="bottom" constant="44" id="zwe-i9-3IQ"/>
+                            <constraint firstAttribute="bottom" secondItem="PkK-h8-V3S" secondAttribute="bottom" constant="70" id="q7H-ae-0oa"/>
+                            <constraint firstItem="jY4-Zj-0rv" firstAttribute="centerY" secondItem="PkK-h8-V3S" secondAttribute="centerY" id="s0H-hN-bBg"/>
+                            <constraint firstItem="Chn-Vj-oCe" firstAttribute="centerY" secondItem="PkK-h8-V3S" secondAttribute="centerY" id="wtf-MR-f0D"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="chooseButton" destination="t61-Rn-Y38" id="SlE-3o-LQ6"/>
+                        <outlet property="compressionTipLabel" destination="Chn-Vj-oCe" id="Dup-n3-aBn"/>
                         <outlet property="filePathField" destination="r98-nw-u5d" id="7jb-yN-0ft"/>
                         <outlet property="progressIndictor" destination="jY4-Zj-0rv" id="ZFT-KG-vXE"/>
                         <outlet property="startButton" destination="I8f-j8-Kgh" id="0Xb-Mn-e0N"/>
@@ -806,7 +820,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="74.5" y="655"/>
         </scene>
     </scenes>
     <resources>
