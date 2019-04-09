@@ -141,7 +141,7 @@
         NSFileHandle *readHandle = [outputPipe fileHandleForReading];
         NSData *outputData = [readHandle readDataToEndOfFile];
         NSString *outputString = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
-        NSLog(@"脚本输出-Debug : \n%@",outputString);
+        ZFLog(@"脚本输出-Debug : \n%@",outputString);
         
         int status = [task terminationStatus];
         
