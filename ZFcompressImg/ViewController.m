@@ -48,6 +48,8 @@
 - (void)controlTextDidChange:(NSNotification *)obj {
     self.tipLabel.stringValue = @"";
     self.tipImageView.hidden = YES;
+    self.progressIndictor.hidden = YES;
+    self.compressionTipLabel.hidden = YES;
 }
 
 /**
@@ -101,15 +103,11 @@
     self.tipImageView.hidden = YES;
     
     NSString *filePath = self.filePathField.stringValue;
-    if ([filePath containsString:@" "]) {
-        self.tipLabel.stringValue = @"请检查文件(夹)路径中不能带空格";
-        return;
-    }
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL existsFile = [fileManager fileExistsAtPath:filePath];
     if (filePath.length == 0 || ![filePath containsString:@"/"] || !existsFile) {
-        self.tipLabel.stringValue = @"请选择正确的路径！";
+        self.tipLabel.stringValue = @"请选择正确的文件(夹)路径！";
         return;
     }
     self.progressIndictor.hidden = NO;
@@ -143,7 +141,7 @@
         NSFileHandle *readHandle = [outputPipe fileHandleForReading];
         NSData *outputData = [readHandle readDataToEndOfFile];
         NSString *outputString = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
-        ZFLog(@"脚本输出-Debug : \n%@",outputString);
+        NSLog(@"脚本输出-Debug : \n%@",outputString);
         
         int status = [task terminationStatus];
         
@@ -182,7 +180,6 @@
     if (component1.count > 0) {
         NSString *tmpText = [component1 lastObject];
         if (![tmpText isKindOfClass:[NSString class]]) return @"";
-        
         tmpText = [tmpText stringByReplacingOccurrencesOfString:@"" withString:@"\n"];
         
         NSArray *component2 = [tmpText componentsSeparatedByString:@"TOTAL:"];
@@ -200,20 +197,25 @@
             if (component4.count > 1) {
                 rate = [component4 firstObject];
                 
-                CGFloat totalSizeFloat = totalSize.floatValue / 1014.0;
+                CGFloat allSizeFloat = totalSize.floatValue;
+                
+                CGFloat totalSizeFloat = allSizeFloat / 1024.0;
                 if (totalSizeFloat < 1.0) {
                     totalSize = [NSString stringWithFormat:@"%.2fKB", totalSizeFloat];
                 } else {
                     totalSize = [NSString stringWithFormat:@"%.2fM", totalSizeFloat];
                 }
                 
-                CGFloat compressionSizeFloat = compressionSize.floatValue / 1014.0;
+                CGFloat compressionSizeFloat = (allSizeFloat - compressionSize.floatValue) / 1024.0;
                 if (compressionSizeFloat < 1.0) {
-                    compressionSize = [NSString stringWithFormat:@"%.2fKB", compressionSizeFloat];
+                    if (compressionSizeFloat == 0.0) {
+                        compressionSize = @"小于0.01KB";
+                    } else {
+                        compressionSize = [NSString stringWithFormat:@"%.2fKB", compressionSizeFloat];
+                    }
                 } else {
                     compressionSize = [NSString stringWithFormat:@"%.2fM", compressionSizeFloat];
                 }
-                
                 return [NSString stringWithFormat:@"文件总大小: %@ \n压缩节省: %@ \n压缩率: %@",totalSize ,compressionSize ,rate];
             }
         }

@@ -4,6 +4,10 @@ if [ -z "$1" ]; then
 	exit
 fi
 
+
+OLDIFS=$IFS #处理防止空格,先备份很重要
+IFS=:
+
 # apply the compressimg script to every image file within the given directory
 # if the input is a single file, execute the script on it
 OLDSIZE=`du -sk $1 | awk '{ print $1}'`
@@ -13,6 +17,7 @@ INPUTTYPE="Directory"
 
 # execute compression
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 if [ -d $1 ]; then
 	find $1 -type f \( -name "*.png" \) -exec $DIR/pngquantWrapper '{}' \;
 else
@@ -21,9 +26,10 @@ else
 fi
 
 NEWSIZE=`du -sk $1 | awk '{ print $1}'`
+
 let RESULT=100-$NEWSIZE*100/$OLDSIZE
-echo ''
-echo $1 Finished.
-echo 'NEWSIZE/OLDSIZE' $NEWSIZE'/'$OLDSIZE 
+
+echo 'NEWSIZE/OLDSIZE' $NEWSIZE'/'$OLDSIZE
 echo 'TOTAL:'$RESULT'% COMPRESSED.'
-echo ''
+
+IFS=$OLDIFS #再把IFS挪回来
